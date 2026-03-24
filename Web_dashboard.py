@@ -94,7 +94,7 @@ st.plotly_chart(trend_fig, use_container_width=True)
 st.subheader(" Traffic to Lead Conversion Breakdown")
 
 # --- Channel ---
-fig1 = px.bar(
+fig1 = px.line(
     f.traffic_lead_channel,
     y='Campaign_Type',
     x='Traffic_to_Lead_Rate',
