@@ -166,5 +166,6 @@ st.markdown(f"- Investigate recent decline in conversions to identify potential 
 st.markdown(f"- Re-evaluate strategy for **{worst['Campaign_Type']}** to improve ROI and conversions")
 
 # ---------------- DATA VIEW ----------------
+st.markdown(" ")
 with st.expander("📂 View Dataset"):
     st.dataframe(f.df)
