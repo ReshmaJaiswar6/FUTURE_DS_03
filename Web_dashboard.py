@@ -80,7 +80,7 @@ with col2:
     st.plotly_chart(fig2, use_container_width=True)
 # ---------------- CONVERSION TREND ----------------
 st.subheader("📈 Conversion Trend Over Time")
-trend_fig = py.line(
+trend_fig = px.line(
     f.conversion_trend,
     x='Date',
     y='Conversions',
