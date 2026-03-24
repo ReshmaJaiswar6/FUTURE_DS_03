@@ -16,10 +16,11 @@ Nykaa Marketing Campaign Performance Dataset; Real-World Inspired E-commerce Cam
 
 # ---------------- EXECUTIVE SUMMARY ----------------
 st.info(f"""
-📌 **Executive Summary**
+ **Executive Summary**
 
 - Significant drop-off of **{f.funnel_df['Drop_off_Rate'].max():.1f}%** observed at **{f.funnel_df.loc[f.funnel_df['Drop_off_Rate'].idxmax(), 'Stage']}**, indicating weak engagement at this stage.  
 - **{f.channel_quality.iloc[0]['Campaign_Type']}** delivers the highest conversion rate (**{f.channel_quality.iloc[0]['Lead_to_Conv_Rate']:.2f}%**), making it the most effective channel.  
+- Recent decline indicates potential drop in engagement.
 - Opportunity to optimize underperforming channels and scale high-ROI campaigns for better overall performance.
 """)
 
@@ -45,17 +46,18 @@ fig = px.funnel(
 st.plotly_chart(fig, use_container_width=True)
 
 # ---------------- DROP-OFF ----------------
-st.subheader("🚨 Drop-off Insight")
+st.subheader(" Drop-off Insight")
 
 max_idx = f.funnel_df['Drop_off_Rate'].idxmax()
 stage = f.funnel_df.loc[max_idx, 'Stage']
 drop = f.funnel_df.loc[max_idx, 'Drop_off_Rate']
 
-st.error(f"Biggest Drop-off at **{stage}** → {drop:.2f}% users lost")
+st.error(f"Biggest Drop-off at **{stage}** → {drop:.2f}% users lost, indicating a critical optimization point")
 st.info("Focus optimization efforts on this stage to improve overall conversion.")
 
 # ---------------- CHANNEL PERFORMANCE ----------------
-st.subheader("📈 Channel Performance")
+st.subheader(" Channel Performance")
+st.info("Compares channels based on conversion efficiency and ROI.")
 
 col1, col2 = st.columns(2)
 
@@ -79,7 +81,7 @@ with col2:
     )
     st.plotly_chart(fig2, use_container_width=True)
 # ---------------- CONVERSION TREND ----------------
-st.subheader("📈 Conversion Trend Over Time")
+st.subheader(" Conversion Trend Over Time")
 trend_fig = px.line(
     f.conversion_trend,
     x='Date',
@@ -92,15 +94,16 @@ st.plotly_chart(trend_fig, use_container_width=True)
 
 # ---------------- TRAFFIC TO LEAD (FULL BREAKDOWN) ----------------
 st.subheader(" Traffic to Lead Conversion Breakdown")
+st.info("Shows how effectively traffic converts into leads across segments.")
 
 # --- Channel ---
-fig1 = px.line(
+fig1 = px.bar(
     f.traffic_lead_channel,
     y='Campaign_Type',
     x='Traffic_to_Lead_Rate',
-   # color='Campaign_Type',
-    #orientation='h',
-   # text_auto='.2f'
+    color='Campaign_Type',
+    orientation='h',
+    text_auto='.2f'
 )
 fig1.update_traces(textposition='outside')
 fig1.update_layout(title="Traffic to Lead by Channel")
@@ -133,7 +136,7 @@ fig3.update_traces(textposition='outside')
 fig3.update_layout(title="Traffic to Lead by Language")
 st.plotly_chart(fig3, use_container_width=True)
 # ---------------- SMART INSIGHTS ----------------
-st.subheader("🧠 Key Insights & Recommendations")
+st.subheader(" Key Insights & Recommendations")
 
 best = f.channel_quality.iloc[0]
 worst = f.channel_quality.iloc[-1]
@@ -142,11 +145,13 @@ max_idx = f.funnel_df['Drop_off_Rate'].idxmax()
 stage = f.funnel_df.loc[max_idx, 'Stage']
 drop = f.funnel_df.loc[max_idx, 'Drop_off_Rate']
 
-st.success(f"✅ Best Channel: {best['Campaign_Type']} ({best['Lead_to_Conv_Rate']:.2f}% conversion)")
-st.error(f"❌ Underperforming Channel: {worst['Campaign_Type']}")
-st.warning(f"⚠️ Highest drop-off at {stage} ({drop:.2f}%)")
+st.success(f" Best Channel: {best['Campaign_Type']} ({best['Lead_to_Conv_Rate']:.2f}% conversion)")
+st.error(f" Underperforming Channel: {worst['Campaign_Type']}, lowest Lead-to-Conversion rate and ROI ")
+st.warning(f" Highest drop-off at {stage} ({drop:.2f}%)")
+st.warning(f" Investigate recent decline in conversions to identify potential external or campaign-related factors.")
 
-st.markdown("### 📢 Recommended Actions")
+
+st.markdown("###  Recommended Actions")
 
 if drop > 80:
     st.markdown("- Improve ad creatives and audience targeting to reduce top-funnel loss")
