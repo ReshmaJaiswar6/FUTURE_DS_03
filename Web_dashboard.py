@@ -65,7 +65,7 @@ with col2:
 # ---------------- TRAFFIC TO LEAD (FULL BREAKDOWN) ----------------
 st.subheader(" Traffic to Lead Conversion Breakdown")
 
-col1, col2 = st.columns(3)
+col1, col2 = st.columns(2)
 
 # --- Channel ---
 with col1:
