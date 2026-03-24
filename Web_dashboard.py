@@ -1,6 +1,6 @@
 import streamlit as st
 import plotly.express as px
-import analysis as f   # 👈 your analysis file
+import analysis as f   #  analysis file
 
 st.set_page_config(page_title="Marketing Dashboard", layout="wide")
 
@@ -62,11 +62,10 @@ with col2:
     )
     st.plotly_chart(fig2, use_container_width=True)
 
-# ---------------- TRAFFIC TO LEAD ----------------
 # ---------------- TRAFFIC TO LEAD (FULL BREAKDOWN) ----------------
-st.subheader("🚀 Traffic to Lead Conversion Breakdown")
+st.subheader(" Traffic to Lead Conversion Breakdown")
 
-col1, col2, col3 = st.columns(3)
+col1, col2 = st.columns(3)
 
 # --- Channel ---
 with col1:
@@ -79,7 +78,7 @@ with col1:
         text_auto='.2f'
     )
     fig1.update_traces(textposition='outside')
-    fig1.update_layout(title="By Channel")
+    fig1.update_layout(title="Traffic to Lead by Channel")
     st.plotly_chart(fig1, use_container_width=True)
 
 # --- Audience ---
@@ -93,21 +92,21 @@ with col2:
         text_auto='.2f'
     )
     fig2.update_traces(textposition='outside')
-    fig2.update_layout(title="By Audience")
+    fig2.update_layout(title=" Traffic to Lead by Audience")
     st.plotly_chart(fig2, use_container_width=True)
 
 # --- Language ---
-with col3:
-    fig3 = px.bar(
-        f.traffic_lead_lang,
-        y='Language',
-        x='Traffic_to_Lead_Rate',
-        color='Language',
-        orientation='h',
-        text_auto='.2f'
-    )
+
+fig3 = px.bar(
+    f.traffic_lead_lang,
+    y='Language',
+    x='Traffic_to_Lead_Rate',
+    color='Language',
+    orientation='h',
+    text_auto='.2f'
+)
     fig3.update_traces(textposition='outside')
-    fig3.update_layout(title="By Language")
+    fig3.update_layout(title="Traffic to Lead by Language")
     st.plotly_chart(fig3, use_container_width=True)
 
 # ---------------- SMART INSIGHTS ----------------
