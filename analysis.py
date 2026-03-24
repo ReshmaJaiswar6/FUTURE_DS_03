@@ -18,8 +18,7 @@ import seaborn as sns
 # Load data
 df = pd.read_csv('nykaa_campaign_data.csv')
 df.head()
-df['Date'] = pd.to_datetime(df['Date'])
-    conversion_trend = df.groupby('Date')['Conversions'].sum().reset_index()
+
 
 # 1. Aggregate funnel volumes
 funnel_data = {
