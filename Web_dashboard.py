@@ -81,6 +81,11 @@ with col2:
 # ---------------- CONVERSION TREND ----------------
 st.subheader("📈 Conversion Trend Over Time")
 
+# Check if Date column exists
+if 'Date' in df.columns:
+    df['Date'] = pd.to_datetime(df['Date'])
+    conversion_trend = df.groupby('Date')['Conversions'].sum().reset_index()
+
 trend_fig = px.line(
     f.conversion_trend,
     x='Date',
