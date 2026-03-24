@@ -4,7 +4,15 @@ import analysis as f   #  analysis file
 
 st.set_page_config(page_title="Marketing Dashboard", layout="wide")
 
-st.title("📊 Marketing Funnel Intelligence Dashboard")
+# ---------------- HEADER ----------------
+st.title("📊 Marketing Funnel & Conversion Performance Analysis")
+
+st.markdown("""
+Analyzing user journey from clicks to conversions to identify drop-offs and optimize campaign effectiveness.
+
+**Dataset:**  
+Nykaa Marketing Campaign Performance Dataset; Real-World Inspired E-commerce Campaign Data for Marketing Analytics & ROI.
+""")
 
 # ---------------- KPI SECTION ----------------
 st.subheader("📌 Key Metrics")
@@ -15,7 +23,6 @@ col1.metric("Impressions", f"{int(f.funnel_df.loc[0,'Value']):,}")
 col2.metric("Clicks", f"{int(f.funnel_df.loc[1,'Value']):,}")
 col3.metric("Leads", f"{int(f.funnel_df.loc[2,'Value']):,}")
 col4.metric("Conversions", f"{int(f.funnel_df.loc[3,'Value']):,}")
-
 # ---------------- FUNNEL ----------------
 st.subheader("🔻 Funnel Visualization")
 
