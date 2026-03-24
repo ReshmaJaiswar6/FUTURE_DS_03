@@ -112,25 +112,6 @@ with col2:
         title="ROI by Channel"
     )
     st.plotly_chart(fig2, use_container_width=True)
-st.subheader("🔍 Why Users Drop? (ROI vs Conversion)")
-
-scatter = px.scatter(
-    f.channel_quality,
-    x="ROI",
-    y="Lead_to_Conv_Rate",
-    size="Revenue",
-    color="Campaign_Type",
-    hover_name="Campaign_Type"
-)
-
-st.plotly_chart(scatter, use_container_width=True)
-
-st.markdown("""
-**Interpretation:**
-- High ROI + Low Conversion → UX / pricing issue  
-- Low ROI + High Conversion → Scale this channel  
-- Low both → Poor campaign performance  
-""")
 
 # ---------------- SMART INSIGHTS ----------------
 st.subheader("🧠 Key Insights")
