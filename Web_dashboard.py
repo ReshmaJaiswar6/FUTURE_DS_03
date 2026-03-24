@@ -5,13 +5,22 @@ import analysis as f   #  analysis file
 st.set_page_config(page_title="Marketing Dashboard", layout="wide")
 
 # ---------------- HEADER ----------------
-st.title("📊 Marketing Funnel & Conversion Performance Analysis")
+st.title(" Marketing Funnel & Conversion Performance Analysis")
 
 st.markdown("""
 Analyzing user journey from clicks to conversions to identify drop-offs and optimize campaign effectiveness.
 
 **Dataset:**  
 Nykaa Marketing Campaign Performance Dataset; Real-World Inspired E-commerce Campaign Data for Marketing Analytics & ROI.
+""")
+
+# ---------------- EXECUTIVE SUMMARY ----------------
+st.info(f"""
+📌 **Executive Summary**
+
+- Significant drop-off of **{f.funnel_df['Drop_off_Rate'].max():.1f}%** observed at **{f.funnel_df.loc[f.funnel_df['Drop_off_Rate'].idxmax(), 'Stage']}**, indicating weak engagement at this stage.  
+- **{f.channel_quality.iloc[0]['Campaign_Type']}** delivers the highest conversion rate (**{f.channel_quality.iloc[0]['Lead_to_Conv_Rate']:.2f}%**), making it the most effective channel.  
+- Opportunity to optimize underperforming channels and scale high-ROI campaigns for better overall performance.
 """)
 
 # ---------------- KPI SECTION ----------------
@@ -44,6 +53,43 @@ drop = f.funnel_df.loc[max_idx, 'Drop_off_Rate']
 
 st.error(f"Biggest Drop-off at **{stage}** → {drop:.2f}% users lost")
 st.info("Focus optimization efforts on this stage to improve overall conversion.")
+
+# ---------------- CHANNEL PERFORMANCE ----------------
+st.subheader("📈 Channel Performance")
+
+col1, col2 = st.columns(2)
+
+with col1:
+    fig1 = px.bar(
+        f.channel_quality,
+        x='Campaign_Type',
+        y='Lead_to_Conv_Rate',
+        color='Campaign_Type',
+        title="Lead → Conversion Rate"
+    )
+    st.plotly_chart(fig1, use_container_width=True)
+
+with col2:
+    fig2 = px.bar(
+        f.channel_quality,
+        x='Campaign_Type',
+        y='ROI',
+        color='Campaign_Type',
+        title="ROI by Channel"
+    )
+    st.plotly_chart(fig2, use_container_width=True)
+# ---------------- CONVERSION TREND ----------------
+st.subheader("📈 Conversion Trend Over Time")
+
+trend_fig = px.line(
+    f.conversion_trend,
+    x='Date',
+    y='Conversions',
+    markers=True
+)
+
+st.plotly_chart(trend_fig, use_container_width=True)
+
 
 # ---------------- TRAFFIC TO LEAD (FULL BREAKDOWN) ----------------
 st.subheader(" Traffic to Lead Conversion Breakdown")
@@ -87,46 +133,31 @@ fig3 = px.bar(
 fig3.update_traces(textposition='outside')
 fig3.update_layout(title="Traffic to Lead by Language")
 st.plotly_chart(fig3, use_container_width=True)
-
-# ---------------- CHANNEL PERFORMANCE ----------------
-st.subheader("📈 Channel Performance")
-
-col1, col2 = st.columns(2)
-
-with col1:
-    fig1 = px.bar(
-        f.channel_quality,
-        x='Campaign_Type',
-        y='Lead_to_Conv_Rate',
-        color='Campaign_Type',
-        title="Lead → Conversion Rate"
-    )
-    st.plotly_chart(fig1, use_container_width=True)
-
-with col2:
-    fig2 = px.bar(
-        f.channel_quality,
-        x='Campaign_Type',
-        y='ROI',
-        color='Campaign_Type',
-        title="ROI by Channel"
-    )
-    st.plotly_chart(fig2, use_container_width=True)
-
 # ---------------- SMART INSIGHTS ----------------
-st.subheader("🧠 Key Insights")
+st.subheader("🧠 Key Insights & Recommendations")
 
-best_channel = f.channel_quality.iloc[0]['Campaign_Type']
-best_rate = f.channel_quality.iloc[0]['Lead_to_Conv_Rate']
+best = f.channel_quality.iloc[0]
+worst = f.channel_quality.iloc[-1]
 
-st.success(f"Best performing channel: **{best_channel}** ({best_rate:.2f}% conversion)")
+max_idx = f.funnel_df['Drop_off_Rate'].idxmax()
+stage = f.funnel_df.loc[max_idx, 'Stage']
+drop = f.funnel_df.loc[max_idx, 'Drop_off_Rate']
+
+st.success(f"✅ Best Channel: {best['Campaign_Type']} ({best['Lead_to_Conv_Rate']:.2f}% conversion)")
+st.error(f"❌ Underperforming Channel: {worst['Campaign_Type']}")
+st.warning(f"⚠️ Highest drop-off at {stage} ({drop:.2f}%)")
+
+st.markdown("### 📢 Recommended Actions")
 
 if drop > 80:
-    st.warning("⚠️ Major drop at top funnel → improve ads/targeting")
+    st.markdown("- Improve ad creatives and audience targeting to reduce top-funnel loss")
 elif drop > 50:
-    st.warning("⚠️ Moderate drop → improve landing page")
+    st.markdown("- Optimize landing page and user journey to improve engagement")
 else:
-    st.success("👍 Funnel performing well")
+    st.markdown("- Funnel is efficient, focus on scaling conversions")
+
+st.markdown(f"- Increase investment in **{best['Campaign_Type']}** channel due to high conversion performance")
+st.markdown(f"- Re-evaluate strategy for **{worst['Campaign_Type']}** to improve ROI and conversions")
 
 # ---------------- DATA VIEW ----------------
 with st.expander("📂 View Dataset"):
