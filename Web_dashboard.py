@@ -14,6 +14,9 @@ Analyzing user journey from clicks to conversions to identify drop-offs and opti
 Nykaa Marketing Campaign Performance Dataset; Real-World Inspired E-commerce Campaign Data for Marketing Analytics & ROI.
 """)
 
+campaign = st.sidebar.multiselect("Campaign", f.df['Campaign_Type'].unique())
+language = st.sidebar.multiselect("Language", f.df['Language'].unique())
+
 # ---------------- KPI SECTION ----------------
 st.subheader("📌 Key Metrics")
 
@@ -43,6 +46,7 @@ stage = f.funnel_df.loc[max_idx, 'Stage']
 drop = f.funnel_df.loc[max_idx, 'Drop_off_Rate']
 
 st.error(f"Biggest Drop-off at **{stage}** → {drop:.2f}% users lost")
+st.info("Focus optimization efforts on this stage to improve overall conversion.")
 
 # ---------------- TRAFFIC TO LEAD (FULL BREAKDOWN) ----------------
 st.subheader(" Traffic to Lead Conversion Breakdown")
