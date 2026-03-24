@@ -146,9 +146,10 @@ stage = f.funnel_df.loc[max_idx, 'Stage']
 drop = f.funnel_df.loc[max_idx, 'Drop_off_Rate']
 
 st.success(f" Best Channel: {best['Campaign_Type']} ({best['Lead_to_Conv_Rate']:.2f}% conversion)")
-st.error(f" Underperforming Channel: {worst['Campaign_Type']}, lowest Lead-to-Conversion rate and ROI ")
+st.warning(f" Underperforming Channel: {worst['Campaign_Type']}, lowest Lead-to-Conversion rate and ROI ")
 st.warning(f" Highest drop-off at {stage} ({drop:.2f}%)")
-st.warning(f" Investigate recent decline in conversions to identify potential external or campaign-related factors.")
+st.warning("Performance is mostly stable, recent dip suggests declining effectiveness.")
+
 
 
 st.markdown("###  Recommended Actions")
@@ -161,6 +162,7 @@ else:
     st.markdown("- Funnel is efficient, focus on scaling conversions")
 
 st.markdown(f"- Increase investment in **{best['Campaign_Type']}** channel due to high conversion performance")
+st.warning(f" Investigate recent decline in conversions to identify potential external or campaign-related factors.")
 st.markdown(f"- Re-evaluate strategy for **{worst['Campaign_Type']}** to improve ROI and conversions")
 
 # ---------------- DATA VIEW ----------------
