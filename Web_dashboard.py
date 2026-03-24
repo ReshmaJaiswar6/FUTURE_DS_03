@@ -162,7 +162,7 @@ else:
     st.markdown("- Funnel is efficient, focus on scaling conversions")
 
 st.markdown(f"- Increase investment in **{best['Campaign_Type']}** channel due to high conversion performance")
-st.warning(f" Investigate recent decline in conversions to identify potential external or campaign-related factors.")
+st.markdown(f" Investigate recent decline in conversions to identify potential external or campaign-related factors.")
 st.markdown(f"- Re-evaluate strategy for **{worst['Campaign_Type']}** to improve ROI and conversions")
 
 # ---------------- DATA VIEW ----------------
