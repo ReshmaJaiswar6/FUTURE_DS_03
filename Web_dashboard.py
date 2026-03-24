@@ -98,9 +98,9 @@ fig1 = px.line(
     f.traffic_lead_channel,
     y='Campaign_Type',
     x='Traffic_to_Lead_Rate',
-    color='Campaign_Type',
-    orientation='h',
-    text_auto='.2f'
+   # color='Campaign_Type',
+    #orientation='h',
+   # text_auto='.2f'
 )
 fig1.update_traces(textposition='outside')
 fig1.update_layout(title="Traffic to Lead by Channel")
