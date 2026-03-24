@@ -63,17 +63,52 @@ with col2:
     st.plotly_chart(fig2, use_container_width=True)
 
 # ---------------- TRAFFIC TO LEAD ----------------
-st.subheader("🚀 Traffic to Lead Conversion")
+# ---------------- TRAFFIC TO LEAD (FULL BREAKDOWN) ----------------
+st.subheader("🚀 Traffic to Lead Conversion Breakdown")
 
-fig3 = px.bar(
-    f.traffic_lead_channel,
-    y='Campaign_Type',
-    x='Traffic_to_Lead_Rate',
-    color='Campaign_Type',
-    orientation='h'
-)
+col1, col2, col3 = st.columns(3)
 
-st.plotly_chart(fig3, use_container_width=True)
+# --- Channel ---
+with col1:
+    fig1 = px.bar(
+        f.traffic_lead_channel,
+        y='Campaign_Type',
+        x='Traffic_to_Lead_Rate',
+        color='Campaign_Type',
+        orientation='h',
+        text_auto='.2f'
+    )
+    fig1.update_traces(textposition='outside')
+    fig1.update_layout(title="By Channel")
+    st.plotly_chart(fig1, use_container_width=True)
+
+# --- Audience ---
+with col2:
+    fig2 = px.bar(
+        f.traffic_lead_audience,
+        y='Target_Audience',
+        x='Traffic_to_Lead_Rate',
+        color='Target_Audience',
+        orientation='h',
+        text_auto='.2f'
+    )
+    fig2.update_traces(textposition='outside')
+    fig2.update_layout(title="By Audience")
+    st.plotly_chart(fig2, use_container_width=True)
+
+# --- Language ---
+with col3:
+    fig3 = px.bar(
+        f.traffic_lead_lang,
+        y='Language',
+        x='Traffic_to_Lead_Rate',
+        color='Language',
+        orientation='h',
+        text_auto='.2f'
+    )
+    fig3.update_traces(textposition='outside')
+    fig3.update_layout(title="By Language")
+    st.plotly_chart(fig3, use_container_width=True)
 
 # ---------------- SMART INSIGHTS ----------------
 st.subheader("🧠 Key Insights")
