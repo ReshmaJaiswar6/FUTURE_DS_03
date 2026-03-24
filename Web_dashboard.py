@@ -44,6 +44,49 @@ drop = f.funnel_df.loc[max_idx, 'Drop_off_Rate']
 
 st.error(f"Biggest Drop-off at **{stage}** → {drop:.2f}% users lost")
 
+# ---------------- TRAFFIC TO LEAD (FULL BREAKDOWN) ----------------
+st.subheader(" Traffic to Lead Conversion Breakdown")
+
+# --- Channel ---
+fig1 = px.bar(
+    f.traffic_lead_channel,
+    y='Campaign_Type',
+    x='Traffic_to_Lead_Rate',
+    color='Campaign_Type',
+    orientation='h',
+    text_auto='.2f'
+)
+fig1.update_traces(textposition='outside')
+fig1.update_layout(title="Traffic to Lead by Channel")
+st.plotly_chart(fig1, use_container_width=True)
+
+# --- Audience ---
+fig2 = px.bar(
+    f.traffic_lead_audience,
+    y='Target_Audience',
+    x='Traffic_to_Lead_Rate',
+    color='Target_Audience',
+    orientation='h',
+    text_auto='.2f'
+)
+fig2.update_traces(textposition='outside')
+fig2.update_layout(title=" Traffic to Lead by Audience")
+st.plotly_chart(fig2, use_container_width=True)
+
+# --- Language ---
+
+fig3 = px.bar(
+    f.traffic_lead_lang,
+    y='Language',
+    x='Traffic_to_Lead_Rate',
+    color='Language',
+    orientation='h',
+    text_auto='.2f'
+)
+fig3.update_traces(textposition='outside')
+fig3.update_layout(title="Traffic to Lead by Language")
+st.plotly_chart(fig3, use_container_width=True)
+
 # ---------------- CHANNEL PERFORMANCE ----------------
 st.subheader("📈 Channel Performance")
 
@@ -68,53 +111,6 @@ with col2:
         title="ROI by Channel"
     )
     st.plotly_chart(fig2, use_container_width=True)
-
-# ---------------- TRAFFIC TO LEAD (FULL BREAKDOWN) ----------------
-st.subheader(" Traffic to Lead Conversion Breakdown")
-
-col1, col2 = st.columns(2)
-
-# --- Channel ---
-with col1:
-    fig1 = px.bar(
-        f.traffic_lead_channel,
-        y='Campaign_Type',
-        x='Traffic_to_Lead_Rate',
-        color='Campaign_Type',
-        orientation='h',
-        text_auto='.2f'
-    )
-    fig1.update_traces(textposition='outside')
-    fig1.update_layout(title="Traffic to Lead by Channel")
-    st.plotly_chart(fig1, use_container_width=True)
-
-# --- Audience ---
-with col2:
-    fig2 = px.bar(
-        f.traffic_lead_audience,
-        y='Target_Audience',
-        x='Traffic_to_Lead_Rate',
-        color='Target_Audience',
-        orientation='h',
-        text_auto='.2f'
-    )
-    fig2.update_traces(textposition='outside')
-    fig2.update_layout(title=" Traffic to Lead by Audience")
-    st.plotly_chart(fig2, use_container_width=True)
-
-# --- Language ---
-
-fig3 = px.bar(
-    f.traffic_lead_lang,
-    y='Language',
-    x='Traffic_to_Lead_Rate',
-    color='Language',
-    orientation='h',
-    text_auto='.2f'
-)
-fig3.update_traces(textposition='outside')
-fig3.update_layout(title="Traffic to Lead by Language")
-st.plotly_chart(fig3, use_container_width=True)
 
 # ---------------- SMART INSIGHTS ----------------
 st.subheader("🧠 Key Insights")
