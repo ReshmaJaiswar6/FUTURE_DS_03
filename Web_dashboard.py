@@ -105,9 +105,9 @@ fig3 = px.bar(
     orientation='h',
     text_auto='.2f'
 )
-    fig3.update_traces(textposition='outside')
-    fig3.update_layout(title="Traffic to Lead by Language")
-    st.plotly_chart(fig3, use_container_width=True)
+fig3.update_traces(textposition='outside')
+fig3.update_layout(title="Traffic to Lead by Language")
+st.plotly_chart(fig3, use_container_width=True)
 
 # ---------------- SMART INSIGHTS ----------------
 st.subheader("🧠 Key Insights")
