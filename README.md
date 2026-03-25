@@ -45,11 +45,17 @@ Conversion trends indicate performance stability with recent fluctuations
 
 ## Project Structure
 📁 project-folder
+
 │── app.py                 # Streamlit dashboard
+
 │── analysis.py            # Data processing & analysis
+
 │── nykaa_campaign_data.csv
+
 │── requirements.txt
+
 │── README.md
+
 
 ## Deployment
 
